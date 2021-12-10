@@ -69,7 +69,7 @@ static std::string
 _GenPixelShader(mx::GenContext & mxContext, mx::ElementPtr const& mxElem)
 {
     bool hasTransparency = mx::isTransparentSurface(mxElem, 
-                                mxContext.getShaderGenerator());
+                                mxContext.getShaderGenerator().getTarget());
 
     mx::GenContext materialContext = mxContext;
     materialContext.getOptions().hwTransparency = hasTransparency;
