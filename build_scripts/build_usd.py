@@ -1101,7 +1101,7 @@ OPENVDB = Dependency("OpenVDB", InstallOpenVDB, "include/openvdb/openvdb.h")
 ############################################################
 # OpenImageIO
 
-OIIO_URL = "https://github.com/OpenImageIO/oiio/archive/Release-2.1.16.0.zip"
+OIIO_URL = "https://github.com/OpenImageIO/oiio/archive/Release-2.1.20.0.zip"
 
 def InstallOpenImageIO(context, force, buildArgs):
     with CurrentWorkingDirectory(DownloadURL(OIIO_URL, context, force)):
