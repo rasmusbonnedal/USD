@@ -2393,13 +2393,16 @@ _ConvertHdMaterialNetworkToHdDataSources(
                         entryPair.second.size(), entryPair.second.data()));
             }
 
+            auto paramsNamesPtr = paramsNames.empty() ? 0 : &paramsNames.front();
+            auto paramsValuesPtr = paramsValues.empty() ? 0 : &paramsValues.front();
+
             nodeNames.push_back(node.path.GetToken());
             nodeValues.push_back(
                 HdMaterialNodeSchema::BuildRetained(
                     HdRetainedContainerDataSource::New(
                         paramsNames.size(), 
-                        &paramsNames.front(), 
-                        &paramsValues.front()), 
+                        paramsNamesPtr,
+                        paramsValuesPtr), 
                     HdRetainedContainerDataSource::New(
                         cNames.size(), 
                         &cNames.front(), 
@@ -2417,17 +2420,21 @@ _ConvertHdMaterialNetworkToHdDataSources(
                 );
     }
 
-    HdContainerDataSourceHandle nodesDefaultContext = 
+    auto nodeNamesPtr = nodeNames.empty() ? 0 : &nodeNames.front();
+    auto nodeValuesPtr = nodeValues.empty() ? 0 : &nodeValues.front();
+    HdContainerDataSourceHandle nodesDefaultContext =
         HdRetainedContainerDataSource::New(
             nodeNames.size(), 
-            &nodeNames.front(), 
-            &nodeValues.front());
+            nodeNamesPtr,
+            nodeValuesPtr);
 
+    auto terminalsNamesPtr = terminalsNames.empty() ? 0 : &terminalsNames.front();
+    auto terminalsValuesPtr = terminalsValues.empty() ? 0 : &terminalsValues.front();
     HdContainerDataSourceHandle terminalsDefaultContext = 
         HdRetainedContainerDataSource::New(
             terminalsNames.size(), 
-            &terminalsNames.front(), 
-            &terminalsValues.front());
+            terminalsNamesPtr,
+            terminalsValuesPtr);
 
     // Create the material network, potentially one per network selector
     HdDataSourceBaseHandle network = HdMaterialNetworkSchema::BuildRetained(
